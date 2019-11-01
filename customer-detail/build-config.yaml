@@ -8,7 +8,7 @@ steps:
   args: ['push', 'gcr.io/$PROJECT_ID/anthos-customer-detail:$TAG_NAME']
 
 - name: 'gcr.io/$PROJECT_ID/helm'
-  args: ['upgrade', '--install', '--force' , '--set', 'imagetag=$TAG_NAME', 'custdetailsvcrel', './customer-detail/custdetailsvcchart', '--namespace', 'default']
+  args: ['upgrade', '--install', '--force' , '--set', 'imagetag=$TAG_NAME', '--name','$TAG_NAME', './customer-detail/custdetailsvcchart', '--namespace', 'default']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
   - 'CLOUDSDK_CONTAINER_CLUSTER=demo'

@@ -28,7 +28,7 @@ spec:
   selector:
     app: customer-detail-be
   ports:
-    - name: customer-detail-be-port
+    - name: tcp-custdetail
       protocol: TCP
       targetPort: 9000
       port: 9000
@@ -36,7 +36,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-detail-dep
+  name: customer-detail-dep-{{ .Release.Name }}
 spec:
   strategy:
     type: RollingUpdate
@@ -47,11 +47,13 @@ spec:
   selector:
     matchLabels:
        app: customer-detail-be
+       version: v1
   template:
     metadata:
       name: customer-detail-be
       labels:
         app: customer-detail-be
+        version: v1
     spec: 
       containers:
         - name: customer-detail-be
