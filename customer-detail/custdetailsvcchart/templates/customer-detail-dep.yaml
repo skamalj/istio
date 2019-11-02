@@ -47,13 +47,13 @@ spec:
   selector:
     matchLabels:
        app: customer-detail-be
-       version: v1
+       version: {{ .Values.imagetag }}
   template:
     metadata:
       name: customer-detail-be
       labels:
         app: customer-detail-be
-        version: v1
+        version: {{ .Values.imagetag }}
     spec: 
       containers:
         - name: customer-detail-be
