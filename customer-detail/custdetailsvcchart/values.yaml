@@ -1,6 +1,4 @@
 global:
-   project_id: gcdeveloper
-   cluster_name: demo
    service_name: cust-details
-   imagetag: '0.1.0'
    appname: 'customer-detail-be'
+   svcname: 'customer-detail-svc'

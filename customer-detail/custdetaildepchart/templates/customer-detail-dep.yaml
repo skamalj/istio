@@ -6,10 +6,10 @@ data:
   DB_NAME: classicmodels
   DB_USER: anthos
   DB_HOST: anthos-mysql
-  CLUSTER_NAME: {{ .Values.global.cluster_name }}
-  PROJECT_ID: {{ .Values.global.project_id }}
-  SERVICE_NAME: {{ .Values.global.service_name }}
-  REGION: {{ .Values.global.region }}
+  CLUSTER_NAME: {{ .Values.cluster_name }}
+  PROJECT_ID: {{ .Values.project_id }}
+  SERVICE_NAME: {{ .Values.service_name }}
+  REGION: {{ .Values.region }}
   PORT: "9000"
 ---
 apiVersion: v1
@@ -24,7 +24,7 @@ kind: Deployment
 metadata:
   name: customer-detail-dep-{{ .Values.imagetag }}
   labels:
-    app: customer-detail-be
+    app: {{ .Values.appname }}
 spec:
   strategy:
     type: RollingUpdate
@@ -34,18 +34,18 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-       app: customer-detail-be
+       app: {{ .Values.appname }}
        version: {{ .Values.imagetag }}
   template:
     metadata:
-      name: customer-detail-be
+      name: {{ .Values.appname }}
       labels:
-        app: customer-detail-be
+        app: {{ .Values.appname }}
         version: {{ .Values.imagetag }}
     spec: 
       containers:
-        - name: customer-detail-be
-          image: gcr.io/{{ .Values.global.project_id }}/anthos-customer-detail:{{ .Values.imagetag }}
+        - name: {{ .Values.appname }}
+          image: gcr.io/{{ .Values.project_id }}/anthos-customer-detail:{{ .Values.imagetag }}
           env:
             - name: POD_ID
               valueFrom:
