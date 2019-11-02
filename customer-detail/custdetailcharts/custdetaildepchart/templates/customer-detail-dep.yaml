@@ -6,10 +6,10 @@ data:
   DB_NAME: classicmodels
   DB_USER: anthos
   DB_HOST: anthos-mysql
-  CLUSTER_NAME: {{ .Values.cluster_name }}
-  PROJECT_ID: {{ .Values.project_id }}
-  SERVICE_NAME: {{ .Values.service_name }}
-  REGION: {{ .Values.region }}
+  CLUSTER_NAME: {{ .Values.global.cluster_name }}
+  PROJECT_ID: {{ .Values.global.project_id }}
+  SERVICE_NAME: {{ .Values.global.service_name }}
+  REGION: {{ .Values.global.region }}
   PORT: "9000"
 ---
 apiVersion: v1
@@ -19,26 +19,10 @@ metadata:
 data:
   DB_PASS: YWJjMTIz
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: customer-detail-ser
-  labels:
-     app: customer-detail-be
-spec:
-  type: NodePort
-  selector:
-    app: customer-detail-be
-  ports:
-    - name: tcp-custdetail
-      protocol: TCP
-      targetPort: 9000
-      port: 9000
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-detail-dep-{{ .Release.Revision }}
+  name: customer-detail-dep-{{ .Values.imagetag }}
   labels:
     app: customer-detail-be
 spec:
@@ -61,7 +45,7 @@ spec:
     spec: 
       containers:
         - name: customer-detail-be
-          image: gcr.io/{{ .Values.project_id }}/anthos-customer-detail:{{ .Values.imagetag }}
+          image: gcr.io/{{ .Values.global.project_id }}/anthos-customer-detail:{{ .Values.imagetag }}
           env:
             - name: POD_ID
               valueFrom:
