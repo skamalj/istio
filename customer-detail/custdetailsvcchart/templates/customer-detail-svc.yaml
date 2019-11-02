@@ -5,11 +5,8 @@ metadata:
   labels:
      app: {{ .Values.appname }}
 spec:
-  type: NodePort
   selector:
     app: {{ .Values.appname }}
   ports:
     - name: tcp-custdetail
-      protocol: TCP
-      targetPort: 9000
       port: 9000
