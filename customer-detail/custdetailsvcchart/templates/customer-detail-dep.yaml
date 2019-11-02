@@ -38,7 +38,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-detail-dep-{{ .Release.Name }}
+  name: customer-detail-dep-{{ .Release.Revision }}
   labels:
     app: customer-detail-be
 spec:
