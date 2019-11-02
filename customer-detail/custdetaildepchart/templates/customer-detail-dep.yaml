@@ -46,6 +46,9 @@ spec:
       containers:
         - name: {{ .Values.appname }}
           image: gcr.io/{{ .Values.project_id }}/anthos-customer-detail:{{ .Values.imagetag }}
+          ports:
+            - containerPort: 9000
+              name: tcp-custdetail
           env:
             - name: POD_ID
               valueFrom:
