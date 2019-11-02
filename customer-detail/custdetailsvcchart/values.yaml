@@ -1,4 +1,3 @@
-global:
-   service_name: cust-details
-   appname: 'customer-detail-be'
-   svcname: 'customer-detail-svc'
+service_name: cust-details
+appname: 'customer-detail-be'
+svcname: 'customer-detail-svc'
