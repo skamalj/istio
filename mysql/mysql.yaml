@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: anthos-mysql
   labels:
-    app: anthos
+    app: anthos-db
 spec:
   ports:
     - port: 3306
+      name: tcp-mysql
   selector:
-    app: anthos
-    tier: mysql
+    app: anthos-db
   clusterIP: None
 ---
 apiVersion: v1
@@ -38,19 +38,19 @@ kind: Deployment
 metadata:
   name: anthos-mysql
   labels:
-    app: anthos
+    app: anthos-db
 spec:
   selector:
     matchLabels:
-      app: anthos
-      tier: mysql
+      app: anthos-db
+      version: v5.6
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: anthos
-        tier: mysql
+        app: anthos-db
+        version: v5.6
     spec:
       containers:
       - image: mysql:5.6
