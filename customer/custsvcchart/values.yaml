@@ -1,1 +1,3 @@
-imagetag: 0.1.0
+service_name: customer
+appname: 'customer-be'
+svcname: 'customer-svc'

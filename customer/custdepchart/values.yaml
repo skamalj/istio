@@ -1,0 +1,5 @@
+project_id: gcdeveloper
+cluster_name: demo
+service_name: customer
+imagetag: '0.1.0'
+appname: 'customer-be'
