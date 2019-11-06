@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appname }}-dep-{{ .Values.imagetag }}
+  labels:
+    app: {{ .Values.appname }}
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+       app: {{ .Values.appname }}
+       version: {{ .Values.imagetag }}
+  template:
+    metadata:
+      name: {{ .Values.appname }}
+      labels:
+        app: {{ .Values.appname }}
+        version: {{ .Values.imagetag }}
+    spec: 
+      containers:
+        - name: {{ .Values.appname }}
+          image: gcr.io/gcdeveloper/anthos-frontend:{{ .Values.imagetag }}  

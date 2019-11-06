@@ -1,18 +1,19 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['source', 'repos', 'clone', 'anthos-poc']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/gcdeveloper/anthos-frontend:$TAG_NAME','frontend/.']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/gcdeveloper/anthos-frontend:$_VER','frontend/.']
+  args: ['push', 'gcr.io/gcdeveloper/anthos-frontend:$TAG_NAME']
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/gcdeveloper/anthos-frontend:$_VER']
+- name: 'gcr.io/$PROJECT_ID/helm'
+  args: ['upgrade', '--install', '--force' , '--set', 'imagetag=$TAG_NAME', 'frontenddeprel-$TAG_NAME', './frontend/frontenddepchart', '--namespace', 'default']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=demo'
 
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'frontend/frontend-dep.yaml', '-n', 'default']
+- name: 'gcr.io/$PROJECT_ID/helm'
+  args: ['upgrade', '--install', '--force' , '--set', 'imagetag=$TAG_NAME', 'frontendsvcrel', './frontend/frontendsvcchart', '--namespace', 'default']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
   - 'CLOUDSDK_CONTAINER_CLUSTER=demo'
   
-substitutions:
-  _VER: 2.0.0
