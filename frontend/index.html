@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -14,7 +15,7 @@
                   <li class="page-item"><a class="page-link" href="#" v-on:click="nextPage">>></a></li>
                 </ul>
               </nav>
-              <p>The button above has been clicked {{ counter }} times.</p>
+              <p>Customer List is  {{ customerlist }}.</p>
     </div>
       <script>
       var app = new Vue({
@@ -43,8 +44,14 @@
         },
         watch: {
             currentpage: function(oldpage, newpage) {
+                var query_params = {
+                    count: 20,
+                    pageno: this.currentpage
+                }
                 if (oldpage != newpage) 
-                    window.alert("Newpage value " + newpage + " old page valye " + oldpage)
+                axios.get("http://istio.wiprogcn.com/getCustomers", { query_params }).then(function(response){
+		            this.customerlist = response.data;
+		  });
             }
         }
 
