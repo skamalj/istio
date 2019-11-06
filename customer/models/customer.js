@@ -12,6 +12,8 @@ var pool = mysql.createPool({
   });
   
 var getCustomers = function(req, cb) {
+	    query_limit = 10
+		query_offset = 0
 		pool.getConnection(function(err,con) {
 			if (err) {
 				cb(err,null,null);
