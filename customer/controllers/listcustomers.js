@@ -4,7 +4,7 @@ const prometheus = require('../prometheus.js');
 
 var getCustomers = function(req, res){
 	target = req.url;
-	users.getCustomers(function(err, data, fields) {
+	users.getCustomers(req, function(err, data, fields) {
 		if (err){
 			console.log(err);
 			res.status(500);
