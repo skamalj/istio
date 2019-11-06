@@ -1,0 +1,52 @@
+    <div id="app">
+        <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><a class="page-link" href="#" v-on:click="prevPage"><<</a></li>
+                  <li v-bind:class="isActive(counter-2)"><a class="page-link" v-on:click="showPage(counter -2)" v-if="counter - 2  > 0" href="#">\{{ counter -2 }}</a></li>
+                  <li v-bind:class="isActive(counter-1)"><a class="page-link"  v-on:click="showPage(counter -1)" v-if="counter - 1 > 0"  href="#">\{{ counter - 1 }}</a></li>
+                  <li v-bind:class="isActive(counter)"><a class="page-link" v-on:click="showPage(counter)" href="#">\{{ counter }}</a></li>
+                  <li class="page-item"><a class="page-link" href="#" v-on:click="nextPage">>></a></li>
+                </ul>
+              </nav>
+              <p>Customer List is  \{{ customerlist }}.</p>
+    </div>
+      <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          counter: 3,
+          currentpage: 1,
+          customerlist: []
+        },
+        methods: {
+            showPage: function(pageno) {
+                this.currentpage = pageno;
+            },
+            nextPage: function() {
+                if (this.currentpage === this.counter)  this.counter += 1
+                this.currentpage += 1  
+            },
+            prevPage: function() {
+                if (this.counter > 3 ) this.counter -= 1
+                if (this.currentpage > 1) this.currentpage -= 1
+            },
+            isActive: function(pageno){
+                if (pageno === this.currentpage) return "page-item active"
+                else return "page-item"
+            }
+        },
+        watch: {
+            currentpage: function(oldpage, newpage) {
+                var query_params = {
+                    count: 20,
+                    pageno: this.currentpage
+                }
+                if (oldpage != newpage) 
+                axios.get("loadCustomers", { query_params }).then(function(response){
+		            this.customerlist = response.data;
+		  });
+            }
+        }
+
+      })
+    </script>
