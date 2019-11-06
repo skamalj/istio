@@ -12,14 +12,14 @@ var pool = mysql.createPool({
   });
   
 var getCustomers = function(req, cb) {
-	    query_limit = 10
+	    query_limit = parseInt(10)
 		query_offset = 0
 		pool.getConnection(function(err,con) {
 			if (err) {
 				cb(err,null,null);
 			}	
 			else {
-				if (req.query.count) query_limit = req.query.count;
+				if (req.query.count) query_limit = parseInt(req.query.count);
 				if (req.query.pageno) query_offset = query_limit*(req.query.pageno-1)
 				con.query("SELECT customerNumber,customerName FROM customers limit ? offset ?",
 				[query_limit,query_offset], cb);
