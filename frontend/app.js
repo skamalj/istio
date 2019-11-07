@@ -9,6 +9,8 @@ var app = express();
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
+app.use('/components', express.static('./components'));
+
 require('./routes/approutes')(app)
 
 app.set('port', process.env.PORT || 3000);

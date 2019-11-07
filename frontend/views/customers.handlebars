@@ -1,66 +1,78 @@
-    <div id="app" class="col-3">
-        <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#" v-on:click="prevPage"><<</a></li>
-                  <li v-bind:class="isActive(counter-2)"><a class="page-link" v-on:click="showPage(counter -2)" v-if="counter - 2  > 0" href="#">\{{ counter -2 }}</a></li>
-                  <li v-bind:class="isActive(counter-1)"><a class="page-link"  v-on:click="showPage(counter -1)" v-if="counter - 1 > 0"  href="#">\{{ counter - 1 }}</a></li>
-                  <li v-bind:class="isActive(counter)"><a class="page-link" v-on:click="showPage(counter)" href="#">\{{ counter }}</a></li>
-                  <li class="page-item"><a class="page-link" href="#" v-on:click="nextPage">>></a></li>
-                </ul>
-              </nav>
-              <table class="table table-striped table-dark table-bordered table-hover table-sm">
-              <thead class="thead-light">
-                <tr>
-                    <th scope="col">Customer Number</th>
-                    <th scope="col">Customer Name</th>
-                </tr>
-              </thead>
-              <tbody>
-              <tr v-for="item in customerlist">
-              <td> \{{ item.customerNumber }} </td>
-              <td> \{{ item.customerName }} </td>
-              </tr>
-              </tbody>
-              </table>
-    </div>
-      <script>
-      var app = new Vue({
-        el: '#app',
-        data: {
-          counter: 3,
-          currentpage: 1,
-          customerlist: ""
-        },
-        methods: {
-            showPage: function(pageno) {
-                this.currentpage = pageno;
-            },
-            nextPage: function() {
-                if (this.currentpage === this.counter)  this.counter += 1
-                this.currentpage += 1  
-            },
-            prevPage: function() {
-                if (this.counter > 3 ) this.counter -= 1
-                if (this.currentpage > 1) this.currentpage -= 1
-            },
-            isActive: function(pageno){
-                if (pageno === this.currentpage) return "page-item active"
-                else return "page-item"
-            }
-        },
-        watch: {
-            currentpage: function(oldpage, newpage) {
-                var vueObj = this;
-                var query_params = {
-                    count: 10,
-                    pageno: this.currentpage
-                }
-                if (oldpage != newpage) 
-                axios.get("loadCustomers", { params: query_params}).then(function(response){       
-		                vueObj.customerlist = response.data;
-		            });
-            }
-        }
+<div id="app" class="col-2">
 
-      })
-    </script>
+  <ul class="pagination bg-dark small pl-2">
+    <li class="page-item"><a class="page-link" href="#" v-on:click="prevPage">
+        <<</a> </li> <li v-bind:class="isActive(counter-2)"><a class="page-link" v-on:click="showPage(counter -2)"
+            v-if="counter - 2  > 0" href="#">\{{ counter -2 }}</a></li>
+    <li v-bind:class="isActive(counter-1)"><a class="page-link" v-on:click="showPage(counter -1)" v-if="counter - 1 > 0"
+        href="#">\{{ counter - 1 }}</a></li>
+    <li v-bind:class="isActive(counter)"><a class="page-link" v-on:click="showPage(counter)" href="#">\{{ counter }}</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#" v-on:click="nextPage">>></a></li>
+  </ul>
+  <table class="table table-striped table-dark table-bordered table-hover table-sm small mt-0">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Customer Number</th>
+        <th scope="col">Customer Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in customerlist">
+        <td> \{{ item.customerNumber }} </td>
+        <td> \{{ item.customerName }} </td>
+      </tr>
+    </tbody>
+  </table>
+  <customerdetail v-bind:customernumber="customernumber"></customerdetail>
+</div>
+<script type="module">
+   import customerdetail from './components/customerdetail.js';
+  var app = new Vue({
+    el: '#app',
+    components: {
+      customerdetail
+    },  
+    data: {
+      counter: 3,
+      currentpage: 0,
+      customerlist: "",
+      customernumber: 100
+    },
+    mounted: function () {
+      this.currentpage = 1
+      this.customernumber = 103
+    },
+    methods: {
+      showPage: function (pageno) {
+        this.currentpage = pageno;
+      },
+      nextPage: function () {
+        if (this.currentpage === this.counter) this.counter += 1
+        this.currentpage += 1
+      },
+      prevPage: function () {
+        if (this.counter > 3) this.counter -= 1
+        if (this.currentpage > 1) this.currentpage -= 1
+      },
+      isActive: function (pageno) {
+        if (pageno === this.currentpage) return "page-item active"
+        else return "page-item"
+      }
+    },
+    watch: {
+      currentpage: function (oldpage, newpage) {
+        var vueObj = this;
+        var query_params = {
+          count: 10,
+          pageno: this.currentpage
+        }
+        if (oldpage != newpage)
+          axios.get("loadCustomers", { params: query_params }).then(function (response) {
+            vueObj.customerlist = response.data;
+          });
+      }
+    }
+
+  })
+</script>
