@@ -8,6 +8,7 @@ var populateCustomerList = function(req, res){
 		res.send(body);
 	  }	
 	  else {
+		  res.send(error);
 		  console.log(error)
 	  }
     });
@@ -20,6 +21,7 @@ var populateCustomerDetails = function(req, res){
 		res.send(body);
 	  }	
 	  else {
+		  res.send(error);
 		  console.log(error)
 	  }
     });
