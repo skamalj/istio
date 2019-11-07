@@ -16,7 +16,7 @@
         data: {
           counter: 3,
           currentpage: 1,
-          customerlist: []
+          customerlist: "test"
         },
         methods: {
             showPage: function(pageno) {
@@ -37,14 +37,15 @@
         },
         watch: {
             currentpage: function(oldpage, newpage) {
+                var vueObj = this;
                 var query_params = {
                     count: 20,
                     pageno: this.currentpage
                 }
                 if (oldpage != newpage) 
-                axios.get("loadCustomers", { query_params }).then(function(response){
-		            this.customerlist = response.data;
-		  });
+                axios.get("loadCustomers", { params: query_params}).then(function(response){       
+		                vueObj.customerlist = JSON.stringify(response.data[0]);
+		            });
             }
         }
 

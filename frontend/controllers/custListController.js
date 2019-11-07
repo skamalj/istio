@@ -5,14 +5,13 @@ var populateCustomerList = function(req, res){
 		count: req.query.count,
 		pageno: req.query.pageno
 	}
-	console.log("Requesting data from customer svc " + req.query.count)
+	console.log("Requesting data from customer svc for count " + req.query.count + " and page " + req.query.pageno)
 	request({url:'http://customer-svc:9000/getCustomers',qs:query_params}, function (error, response, body) {
-      if (!error) {
-		console.log("Received data from customer svc")  
+      if (!error) { 
 		res.send(body);
 	  }	
 	  else {
-		  res.send(error);
+		  res.send("Could not fetch data from customer service");
 		  console.log(error)
 	  }
     });
@@ -25,7 +24,7 @@ var populateCustomerDetails = function(req, res){
 		res.send(body);
 	  }	
 	  else {
-		  res.send(error);
+		  res.send("Could not fetch data from customer detail service");
 		  console.log(error)
 	  }
     });
