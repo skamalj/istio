@@ -6,7 +6,7 @@ var populateCustomerList = function(req, res){
 		pageno: req.query.pageno
 	}
 	console.log("Requesting data from customer svc for count " + req.query.count + " and page " + req.query.pageno)
-	request({url:'http://customer-svc:9000/getCustomers',qs:query_params}, function (error, response, body) {
+	request({url:'http://istio.wiprogcn.com/getCustomers',qs:query_params}, function (error, response, body) {
       if (!error) { 
 		res.send(body);
 	  }	
