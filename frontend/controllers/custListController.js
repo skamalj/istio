@@ -19,7 +19,8 @@ var populateCustomerList = function(req, res){
 
 var populateCustomerDetails = function(req, res){
 	var request = require('request');
-	request('http://customer-detail-svc:9000/getCustomerDetails/' + req.params.custid, function (error, response, body) {
+	console.log("Getting details for "+req.params.custid);
+	request('http://istio.wiprogcn.com/getCustomerDetails/' + req.params.custid, function (error, response, body) {
       if (!error) {
 		res.send(body);
 	  }	
