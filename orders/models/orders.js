@@ -15,7 +15,7 @@ var getCustomerOrders = function(custid, cb) {
 	    var query = `select o.orderNumber, p.productName,od.priceEach, od.quantityOrdered,o.orderDate,o.status, o.shippedDate
 		from orderdetails od,orders o, products p
 		where od.orderNumber = o.orderNumber and od.productCode = p.productCode
-		o.customerNumber = ?`
+		and o.customerNumber = ?`
 		pool.getConnection(function(err,con) {
 			if (err) {
 				cb(err,null,null);
