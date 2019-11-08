@@ -143,7 +143,7 @@ async function storeLatencyMetric(latency) {
      
     client.createTimeSeries(request,(err => {    
     if(err) {	    
-      console.error(err);
+      console.error("There is error while creating time series");
     }	 
     else {	    
       console.log("Current latency for project_id: "+projectId+" cluster: "+clustername+" zone: "+zone+" is: "+latency.value["int64Value"].toString());	     
