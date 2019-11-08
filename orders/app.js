@@ -30,8 +30,8 @@ app_start_time = Date.now()/1000;
 // to capture current  state of metric value, else it captures the state when 
 // setInterval is first initiated and the metric value is always 0.
 //Although these are called every 15secs, stackdriver has minimum granularity of 60secs.
-setInterval(function() {stalkdriver.storeMetric(Date.now(),app_start_time,stalkdriver.requests)} , 15000 );
-setInterval(function() {stalkdriver.storeLatencyMetric(stalkdriver.latencydatapoint)} , 15000 );
+setInterval(function() {stalkdriver.storeMetric(Date.now(),app_start_time,stalkdriver.requests)} , 30000 );
+setInterval(function() {stalkdriver.storeLatencyMetric(stalkdriver.latencydatapoint)} , 30000 );
 
 app.listen(app.get('port'), function() {
 	logger.logInfo('Express started on http://localhost:' + app.get('port')

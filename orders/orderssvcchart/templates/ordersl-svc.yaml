@@ -8,5 +8,5 @@ spec:
   selector:
     app: {{ .Values.appname }}
   ports:
-    - name: tcp-custdetail
+    - name: tcp-orders
       port: 9000

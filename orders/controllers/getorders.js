@@ -1,4 +1,4 @@
-var details = require('../models/customerdetails.js');
+var orders = require('../models/orders.js');
 const stalkdriver = require('../stalkdriver.js');
 const logger = require('../winston.js')
 
@@ -6,8 +6,8 @@ var getMainPage = function(req, res){
 	res.send('Hello from App Engine!');
 };
 
-var getCustomerDetails = function(req, res){
-	details.getCustomerDetails(req.params.custid, function(err, data, fields) {
+var getCustomerOrders = function(req, res){
+	orders.getCustomerOrders(req.params.custid, function(err, data, fields) {
 		if (err){
 			res.status(500);
             logger.logError(err.code+" "+err.sqlMessage+"for custid:"+ req.params.custid,req,res);
@@ -28,6 +28,6 @@ var getCustomerDetails = function(req, res){
 };
 
 module.exports = {
-		getCustomerDetails: getCustomerDetails,
+		getCustomerOrders: getCustomerOrders,
 		getMainPage: getMainPage
 }

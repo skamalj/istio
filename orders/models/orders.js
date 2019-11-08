@@ -11,18 +11,22 @@ var pool = mysql.createPool({
 	database: process.env.DB_NAME
   });
   
-var getCustomerDetails = function(custid, cb) {
+var getCustomerOrders = function(custid, cb) {
+	    var query = `select o.orderNumber, p.productName,od.priceEach, od.quantityOrdered,o.orderDate,o.status, o.shippedDate
+		from orderdetails od,orders o, products p
+		where od.orderNumber = o.orderNumber and od.productCode = p.productCode
+		o.customerNumber = ?`
 		pool.getConnection(function(err,con) {
 			if (err) {
 				cb(err,null,null);
 			}	
 			else {
-				con.query("SELECT * FROM customers where customerNumber=?",custid, cb);
+				con.query(query,custid, cb);
 				con.release();	
 			}   
 	  });
 };
 
 module.exports = {
-		getCustomerDetails: getCustomerDetails
+		getCustomerOrders: getCustomerOrders
 }

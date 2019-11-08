@@ -1,11 +1,11 @@
 //Defines routes for the application linked to controllers/callback functions
 
-const custdetailctrl = require('../controllers/getcustomerdetails.js');
+const orderctrl = require('../controllers/getorders.js');
 
 module.exports = function(app){
 
-app.get('/', custdetailctrl.getMainPage );	
-app.get('/getCustomerDetails/:custid', custdetailctrl.getCustomerDetails);
+app.get('/', orderctrl.getMainPage );	
+app.get('/getCustomerOrders/:custid', orderctrl.getCustomerOrders);
 
 // 404 
 app.use(function(req, res, next) {

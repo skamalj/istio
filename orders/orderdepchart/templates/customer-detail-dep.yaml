@@ -22,7 +22,7 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-detail-dep-{{ .Values.imagetag }}
+  name: orders-dep-{{ .Values.imagetag }}
   labels:
     app: {{ .Values.appname }}
 spec:
@@ -45,10 +45,10 @@ spec:
     spec: 
       containers:
         - name: {{ .Values.appname }}
-          image: gcr.io/{{ .Values.project_id }}/anthos-customer-detail:{{ .Values.imagetag }}
+          image: gcr.io/{{ .Values.project_id }}/anthos-orders:{{ .Values.imagetag }}
           ports:
             - containerPort: 9000
-              name: tcp-custdetail
+              name: tcp-orders
           env:
             - name: POD_ID
               valueFrom:
