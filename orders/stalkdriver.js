@@ -23,7 +23,7 @@ var latencydatapoint = null;
 
 //Request options to call metadata api from node to get zone
 const options = {
-    url: 'http://metadata.google.internal/computeMetadata/v1/instance/zone',
+    url: 'http://169.254.169.254/computeMetadata/v1/instance/zone',
     headers: {
       'Metadata-Flavor': 'Google'
     }
