@@ -8,5 +8,5 @@ spec:
   selector:
     app: {{ .Values.appname }}
   ports:
-    - name: tcp-customer
+    - name: tcp-frontend
       port: 9000
