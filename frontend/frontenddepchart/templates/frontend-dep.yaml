@@ -26,7 +26,7 @@ spec:
         - name: {{ .Values.appname }}
           image: gcr.io/gcdeveloper/anthos-frontend:{{ .Values.imagetag }}  
           ports:
-          - name: tcp-frontend
+          - name: http
             containerPort: {{ .Values.serviceport }}
           env:
           - name: PORT
