@@ -23,7 +23,7 @@ var latencydatapoint = null;
 
 //Request options to call metadata api from node to get zone
 const options = {
-    url: 'http://metadata.google.internal/computeMetadata/v1/instance/zone',
+    url: 'http://169.254.169.254/computeMetadata/v1/instance/zone',
     headers: {
       'Metadata-Flavor': 'Google'
     }
@@ -48,7 +48,7 @@ async function storeMetric(time_now,start_time,counter) {
     await rp(options).then(function(data) {
         zone = data.split('/').pop();
       }).catch(function (err) {
-        console.error(err);
+        console.error("There is error while getting zone for cust-detail service");
       });
 //For CUMMULATIVE metric both start and end time are required. Requirement is start time should be same for
 //each metric data point. As these metrics are exposed as rate per sec, start time does not matter.
@@ -95,7 +95,7 @@ async function storeMetric(time_now,start_time,counter) {
 //Store metric data point, if this is first data point metric descripter is created as well    
     client.createTimeSeries(request,(err => {    
     if(err) {	    
-      console.error(err);
+        console.error("There is error while creating time series for request count");;
     }	 
     else {
       console.log("Current counter for project_id: "+projectId+" cluster: "+clustername+" zone: "+zone+" is: "+counter.toString());	     
@@ -112,7 +112,7 @@ async function storeLatencyMetric(latency) {
         await rp(options).then(function(data) {
             zone = data.split('/').pop();
           }).catch(function (err) {
-            console.log(err);
+            console.error("There is error while getting metadata");
           });
     
      //Metric request object. Metric type is metric name and service name is used in the type to have
@@ -143,7 +143,7 @@ async function storeLatencyMetric(latency) {
      
     client.createTimeSeries(request,(err => {    
     if(err) {	    
-      console.error("There is error while creating time series");
+      console.error("There is error while creating time series for latency");
     }	 
     else {	    
       console.log("Current latency for project_id: "+projectId+" cluster: "+clustername+" zone: "+zone+" is: "+latency.value["int64Value"].toString());	     
