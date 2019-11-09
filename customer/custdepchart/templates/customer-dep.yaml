@@ -42,6 +42,9 @@ spec:
       containers:
         - name: customer-be
           image: gcr.io/gcdeveloper/anthos-customer:{{ .Values.imagetag }}
+          ports:
+          - name: tcp-customer
+            containerPort: 9000
           envFrom:
           - configMapRef:
               name: db-config-{{ .Release.Name }}
