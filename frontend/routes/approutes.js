@@ -11,6 +11,7 @@ app.get('/', function(req, res) {
 
 app.get('/loadCustomers', custlistctrl.populateCustomerList);
 app.get('/loadCustomerDetails/:custid', custlistctrl.populateCustomerDetails);
+app.get('/loadCustomerOrders/:custid', custlistctrl.populateCustomerOrders);
 
 // 404 
 app.use(function(req, res, next) {

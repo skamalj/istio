@@ -31,12 +31,14 @@
       </div>
       <div class="col-9">
         <customerdetail :customernumber="customernumber"></customerdetail>
+        <customerorders :customernumber="customernumber"></customerorders>
       </div>
     </div>  
   </div>
 </div>
 <script type="module">
   import customerdetail from './components/customerdetail.js';
+  import customerorders from './components/customerorders.js';
   var app = new Vue({
     el: '#app',
     components: {

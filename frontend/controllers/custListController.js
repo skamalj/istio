@@ -31,7 +31,22 @@ var populateCustomerDetails = function(req, res){
     });
 }
 
+var populateCustomerOrders = function(req, res){
+	var request = require('request');
+	console.log("Getting order details for "+req.params.custid);
+	request('http://orders:9000/getCustomerOrders/' + req.params.custid, function (error, response, body) {
+      if (!error) {
+		res.send(body);
+	  }	
+	  else {
+		  res.send("Could not fetch data from order service");
+		  console.log(error)
+	  }
+    });
+}
+
 module.exports = {
 		populateCustomerList: populateCustomerList,
-		populateCustomerDetails: populateCustomerDetails
+		populateCustomerDetails: populateCustomerDetails,
+		populateCustomerOrders: populateCustomerOrders
 }
