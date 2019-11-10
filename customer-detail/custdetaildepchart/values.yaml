@@ -1,5 +1,5 @@
 project_id: gcdeveloper
 cluster_name: demo
-service_name: cust-details
+service_name: 'customer-detail'
 imagetag: '0.1.0'
-appname: 'customer-detail-be'
+appname: 'customer-detail'
