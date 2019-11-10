@@ -20,8 +20,7 @@ var getCustomerDetails = function(req, res){
 		else {
             res.status(200);
 			logger.logInfo("Data fetched for custid: "+ req.params.custid,req,res);
-			//Service without uppercase
-			//data[0].customerName = data[0].customerName.toUpperCase()
+			data[0].customerName = data[0].customerName.toUpperCase()
 			res.send(data);
         //Increment request number on every call			
 			++stalkdriver.requests	
