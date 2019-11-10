@@ -4,6 +4,7 @@ metadata:
   name: {{ .Values.appname }}-dep-{{ .Values.imagetag }}
   labels:
     app: {{ .Values.appname }}
+    version: {{ .Values.imagetag }}
 spec:
   strategy:
     type: RollingUpdate
@@ -26,8 +27,7 @@ spec:
         - name: {{ .Values.appname }}
           image: gcr.io/gcdeveloper/anthos-frontend:{{ .Values.imagetag }}  
           ports:
-          - name: http
-            containerPort: {{ .Values.serviceport }}
+          - containerPort: {{ .Values.serviceport }}
           env:
           - name: PORT
             value: {{ .Values.serviceport | quote }}
