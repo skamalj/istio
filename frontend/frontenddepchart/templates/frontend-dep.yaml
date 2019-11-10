@@ -1,33 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appname }}-dep-{{ .Values.imagetag }}
+  name: frontend-{{ .Values.imagetag }}
   labels:
-    app: {{ .Values.appname }}
+    app: frontend
     version: {{ .Values.imagetag }}
 spec:
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 1
   replicas: 1
   selector:
     matchLabels:
-       app: {{ .Values.appname }}
-       version: {{ .Values.imagetag }}
+      app: frontend
+      version: {{ .Values.imagetag }}
   template:
     metadata:
-      name: {{ .Values.appname }}
       labels:
-        app: {{ .Values.appname }}
+        app: frontend
         version: {{ .Values.imagetag }}
-    spec: 
+    spec:
       containers:
-        - name: {{ .Values.appname }}
-          image: gcr.io/gcdeveloper/anthos-frontend:{{ .Values.imagetag }}  
-          ports:
-          - containerPort: {{ .Values.serviceport }}
-          env:
-          - name: PORT
-            value: {{ .Values.serviceport | quote }}
+      - name: frontend
+        image: gcr.io/gcdeveloper/anthos-frontend:{{ .Values.imagetag }}  
+        ports:
+        - containerPort: 9000
+        env:
+        - name: PORT
+          value: {{ .Values.serviceport | quote }}
