@@ -1,3 +1,3 @@
-service_name: 'customer-detail'
-appname: 'customer-detail'
-svcname: 'customer-detail'
+service_name: customer-detail
+appname: customer-detail
+svcname: customer-detail
