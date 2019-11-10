@@ -2,4 +2,4 @@ project_id: gcdeveloper
 cluster_name: demo
 service_name: orders
 imagetag: '0.1.0'
-appname: 'orders-be'
+appname: 'orders'

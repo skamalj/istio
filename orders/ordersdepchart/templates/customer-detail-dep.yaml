@@ -25,6 +25,7 @@ metadata:
   name: orders-dep-{{ .Values.imagetag }}
   labels:
     app: {{ .Values.appname }}
+    version: {{ .Values.imagetag }}
 spec:
   strategy:
     type: RollingUpdate
@@ -48,7 +49,6 @@ spec:
           image: gcr.io/{{ .Values.project_id }}/anthos-orders:{{ .Values.imagetag }}
           ports:
             - containerPort: 9000
-              name: tcp-orders
           env:
             - name: POD_ID
               valueFrom:
