@@ -21,6 +21,7 @@ metadata:
   name: customer-dep-{{ .Values.imagetag }}
   labels:
     app: {{ .Values.appname }}
+    version: {{ .Values.imagetag }}
 spec:
   strategy:
     type: RollingUpdate
@@ -43,8 +44,7 @@ spec:
         - name: customer-be
           image: gcr.io/gcdeveloper/anthos-customer:{{ .Values.imagetag }}
           ports:
-          - name: http
-            containerPort: 9000
+          - containerPort: 9000
           envFrom:
           - configMapRef:
               name: db-config-{{ .Release.Name }}

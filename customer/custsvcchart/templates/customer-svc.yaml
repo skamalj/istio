@@ -4,6 +4,7 @@ metadata:
   name: {{ .Values.svcname }} 
   labels:
     app: {{ .Values.appname }}
+    service: {{ .Values.svcname }} 
   annotations:
     prometheus.io/scrape: 'true'
 spec:
